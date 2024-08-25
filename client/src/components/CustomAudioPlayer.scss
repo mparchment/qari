@@ -1,0 +1,47 @@
+// CustomAudioPlayer.scss
+
+// Override default variables
+$rhap_theme-color: #10B981;  // A green color that matches your theme
+$rhap_background-color: #1F2937;  // Dark background color
+$rhap_bar-color: #4B5563;  // Slightly lighter gray for progress bar
+$rhap_time-color: #D1D5DB;  // Light gray for time text
+$rhap_font-family: inherit;
+
+// Import the original styles
+@import '~react-h5-audio-player/src/styles.scss';
+
+// Additional custom styles
+.rhap_container {
+  background-color: #374151;  // Slightly lighter than the background for contrast
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);
+  padding: 10px 15px;
+  width: 100%;
+  max-width: 600px;  // Adjust this value to your preference
+  margin: 0 auto;  // Center the player
+}
+
+.rhap_play-pause-button {
+  font-size: 35px;
+  width: 35px;
+  height: 35px;
+}
+
+.rhap_volume-button {
+  color: #D1D5DB;
+}
+
+.rhap_volume-bar, .rhap_progress-bar {
+  height: 4px;
+}
+
+.rhap_progress-filled {
+  background-color: #10B981;
+}
+
+.rhap_download-progress {
+  background-color: #4B5563;
+}
+
+.rhap_time {
+  font-size: 14px;
+}

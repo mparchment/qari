@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+    font-family: "Gotham Medium";
+    src: url("../public/fonts/Gotham Medium.otf");
+  }
+
+  html, body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    background: #202124;
+}
+
+.progress-container {
+    position: relative;
+    height: 2px;
+    background-color: #4caf50;
+    cursor: pointer;
+  }
+  
+  .progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #2196f3;
+  }
