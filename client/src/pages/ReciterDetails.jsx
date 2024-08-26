@@ -24,11 +24,11 @@ const ReciterDetails = () => {
   }, [id]);
 
   if (loading) {
-    return <div className="text-center text-gray-300">Loading...</div>;
+    return <div className="text-center">Loading...</div>;
   }
 
   if (!reciter) {
-    return <div className="text-center text-gray-300">Reciter not found</div>;
+    return <div className="text-center">Reciter not found</div>;
   }
 
   const toggleCollection = (collectionName) => {
@@ -40,22 +40,22 @@ const ReciterDetails = () => {
 
   return (
     <div className="container mx-auto">
-      <h1 className="text-3xl font-bold text-gray-100 pt-12 mb-8">{reciter.name}</h1>
-      <p className="text-gray-400 mb-6">{reciter.bio}</p>
-      <h2 className="text-2xl font-bold text-gray-100 mb-6">Collections</h2>
+      <h1 className="text-3xl font-bold pt-12 mb-8">{reciter.name}</h1>
+      <p className="mb-6">{reciter.bio}</p>
+      <h2 className="text-2xl font-bold mb-6">Collections</h2>
       {reciter.collections.map((collection, index) => (
-        <div key={index} className="bg-gray-800 rounded-lg shadow-md overflow-hidden mb-4">
+        <div key={index} className="rounded-lg shadow-md overflow-hidden mb-4">
           <button
-            className="w-full text-left p-4 flex justify-between items-center text-gray-100 hover:bg-gray-700 transition duration-200"
+            className="w-full text-left p-4 flex justify-between items-center transition duration-200"
             onClick={() => toggleCollection(collection.name)}
           >
             <span className="text-xl font-semibold">{collection.name.toUpperCase()}</span>
             <span>{openCollections[collection.name] ? '▲' : '▼'}</span>
           </button>
           {openCollections[collection.name] && (
-            <ul className="bg-gray-700 p-4">
+            <ul className="p-4">
               {collection.audio_files.map((audio, audioIndex) => (
-                <li key={audioIndex} className="text-gray-300 py-2 hover:text-gray-100">
+                <li key={audioIndex} className="py-2">
                   {audio.title}
                 </li>
               ))}
