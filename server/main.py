@@ -1,11 +1,11 @@
+import os
+import time
+import json
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from typing import List
-import os
-import time
-import json
 
 app = FastAPI()
 
@@ -48,7 +48,13 @@ BIOGRAPHIES_FILE = "biographies.json"
 
 def should_refresh_cache() -> bool:
     """Determine if the cache should be refreshed based on timeout."""
-    return _cache["reciters"] is None or (time.time() - _cache["last_updated"] > CACHE_TIMEOUT)
+    if _cache["reciters"] is None:
+        print("Cache is empty, refreshing.")
+        return True
+    if time.time() - _cache["last_updated"] > CACHE_TIMEOUT:
+        print("Cache timeout reached, refreshing.")
+        return True
+    return False
 
 def load_biographies():
     """Load biographies from the JSON file."""
@@ -61,6 +67,10 @@ def load_biographies():
         print(f"Error loading biographies: {e}")
         return {}
 
+def format_title(title: str) -> str:
+    """Format the title by removing underscores and capitalizing words."""
+    formatted_title = title.replace('_', ' ')
+    return formatted_title
 
 def get_reciters_from_directory():
     base_path = "C:/Users/micha/Documents/GitHub/qari/server/audio"
@@ -80,12 +90,13 @@ def get_reciters_from_directory():
                         if audio_file.endswith(".mp3"):
                             collections[collection_name].append(AudioFile(
                                 id=f"{reciter_name}-{collection_name}-{audio_file}",
-                                title=audio_file.replace('.mp3', ''),
+                                title=audio_file.replace('.mp3', ''),  # Keep original title format
                                 file_path=f"{reciter_name}/{collection_name}/{audio_file}"
                             ))
             
+            # Format the collection names here
             reciter_collections = [
-                Collection(name=name, audio_files=files)
+                Collection(name=format_title(name), audio_files=files)  # Apply formatting to collection names
                 for name, files in collections.items()
             ]
             
@@ -99,12 +110,14 @@ def get_reciters_from_directory():
     
     return reciters
 
-
 def get_cached_reciters():
     """Retrieve reciters from cache or refresh if needed."""
     if should_refresh_cache():
+        print("Refreshing cache.")
         _cache["reciters"] = get_reciters_from_directory()
         _cache["last_updated"] = time.time()
+    else:
+        print("Using cached reciters.")
     return _cache["reciters"]
 
 @app.get("/api/reciters")

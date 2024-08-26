@@ -49,7 +49,7 @@ const ReciterDetails = () => {
             className="w-full text-left p-4 flex justify-between items-center transition duration-200"
             onClick={() => toggleCollection(collection.name)}
           >
-            <span className="text-xl font-semibold">{collection.name.toUpperCase()}</span>
+            <span className="text-xl font-semibold">{collection.name}</span>
             <span>{openCollections[collection.name] ? '▲' : '▼'}</span>
           </button>
           {openCollections[collection.name] && (
