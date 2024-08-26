@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { useAudio } from '../contexts/AudioContext';
 
 const ReciterDetails = () => {
   const { id } = useParams();
   const [reciter, setReciter] = useState(null);
   const [loading, setLoading] = useState(true);
   const [openCollections, setOpenCollections] = useState({});
+  const { handleAudioChange } = useAudio(); // Use the audio context
 
   useEffect(() => {
     const fetchReciterDetails = async () => {
@@ -31,11 +33,17 @@ const ReciterDetails = () => {
     return <div className="text-center">Reciter not found</div>;
   }
 
+  
+
   const toggleCollection = (collectionName) => {
     setOpenCollections(prev => ({
       ...prev,
       [collectionName]: !prev[collectionName]
     }));
+  };
+
+  const handleAudioClick = (audioUrl) => {
+    handleAudioChange(audioUrl);  // Use the full URL directly
   };
 
   return (
@@ -55,7 +63,11 @@ const ReciterDetails = () => {
           {openCollections[collection.name] && (
             <ul className="p-4">
               {collection.audio_files.map((audio, audioIndex) => (
-                <li key={audioIndex} className="py-2">
+                <li 
+                  key={audioIndex} 
+                  className="py-2 cursor-pointer hover:text-blue-500"
+                  onClick={() => handleAudioClick(audio.file_path)}  // Pass the file_path directly
+                >
                   {audio.title}
                 </li>
               ))}

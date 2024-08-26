@@ -15,7 +15,7 @@ function App() {
           <div className="flex flex-grow pb-[5%]">
             <div className="w-[10%] opacity-80 p-8 flex flex-col space-y-6">
               {/* Sidebar content here */}
-              <div className="text-5xl font-bold mb-4 text-blue-600">Qari</div>
+              <div className="text-5xl font-bold mb-4 text-blue-600"><Link to="/">Qari</Link></div>
               <div className="flex flex-col space-y-4">
                 <Link to="/" className="text-lg font-bold hover:underline">Home</Link>
                 <Link to="/search" className="text-lg font-bold hover:underline">Search</Link>
