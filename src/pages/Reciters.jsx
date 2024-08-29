@@ -1,22 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ref, listAll } from 'firebase/storage';
+import { storage } from '../firebase';
+import { formatTitle } from '../utils/FormatTitle';
 
-const reciters = [
-  { id: 1, name: 'Mishary Rashid al-Afasi', imageUrl: 'alafasy.jpg' },
-  { id: 2, name: 'Mohammed Siddiq al-Minshawi', imageUrl: 'minshawi.jpg' },
-  { id: 3, name: 'Maher al-Muaiqly', imageUrl: 'muaiqly.jpg' },
-  // Add more reciters as needed
-];
+const formatUrlName = (name) => {
+  return name.toLowerCase().replace(/\s+/g, '-'); // Format for URL
+};
 
 const Reciters = () => {
+  const [reciters, setReciters] = useState([]);
+
+  useEffect(() => {
+    const fetchReciters = async () => {
+      try {
+        const listRef = ref(storage, 'audio/');
+        const res = await listAll(listRef);
+
+        const reciterList = res.prefixes.map((folderRef) => ({
+          name: formatTitle(folderRef.name),
+          imageUrl: `${folderRef.name.toLowerCase()}.jpg`, // Placeholder for image URL
+        }));
+
+        setReciters(reciterList);
+      } catch (error) {
+        console.error('Error fetching reciters:', error);
+      }
+    };
+
+    fetchReciters();
+  }, []);
+
   return (
     <div className="p-6">
       <h1 className="text-4xl font-bold mb-8 text-gray-800">Reciters</h1>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-        {reciters.map((reciter) => (
+        {reciters.map((reciter, index) => (
           <Link
-            key={reciter.id}
-            to={`/reciters/${reciter.id}`}
+            key={index}
+            to={`/reciters/${formatUrlName(reciter.name)}`} // Format name to match URL structure
             className="relative bg-white rounded-lg shadow-md overflow-hidden"
           >
             <div className="relative">
