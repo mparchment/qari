@@ -1,22 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
-@font-face {
-    font-family: "Gotham Medium";
-    src: url("../public/fonts/Gotham Medium.otf");
-  }
-
-  html, body {
+html, body {
     margin: 0;
     height: 100%;
     width: 100%;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+    font-family: 'Inter', sans-serif;
 }
 
 ::body::-webkit-scrollbar {
@@ -28,63 +22,63 @@
     height: 2px;
     background-color: #4caf50;
     cursor: pointer;
-  }
-  
-  .progress-bar {
+}
+
+.progress-bar {
     position: absolute;
     top: 0;
     left: 0;
     height: 100%;
     background-color: #2196f3;
-  }
+}
 
-  /* Ensure that the parent container of Player allows it to be positioned at the bottom */
+/* Ensure that the parent container of Player allows it to be positioned at the bottom */
 html, body {
-  height: 100%;
-  margin: 0;
+    height: 100%;
+    margin: 0;
 }
 
 /* Ensure the Player is positioned at the bottom */
 .player-container {
-  position: fixed;
-  bottom: 0;
-  left: 35%;
-  transform: translateX(-50%);
-  width: 33%; /* Adjust the width to less than half of the screen */
-  transition: transform 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-  transform: translateY(100%); /* Hide it initially */
+    position: fixed;
+    bottom: 0;
+    left: 35%;
+    transform: translateX(-50%);
+    width: 33%; /* Adjust the width to less than half of the screen */
+    transition: transform 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transform: translateY(100%); /* Hide it initially */
 }
 
 .player-container.visible {
-  transform: translateY(0); /* Slide it up */
+    transform: translateY(0); /* Slide it up */
 }
 
 .player-content {
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Override react-h5-audio-player default styles */
 .rhap_container {
-  background-color: rgba(0, 0, 0, 0.8) !important; /* Match the player background with the sidebar */
-  border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.8) !important; /* Match the player background with the sidebar */
+    border-radius: 8px;
 }
 
 .rhap_progress-bar,
 .rhap_volume-bar {
-  background-color: #e4e4e4 !important; /* Color of volume and progress bar */
+    background-color: #e4e4e4 !important; /* Color of volume and progress bar */
 }
 
 .rhap_controls-section,
 .rhap_time {
-  color: #fff !important; /* Font color of current time and duration */
+    color: #fff !important; /* Font color of current time and duration */
 }
 
 .rhap_play-pause-button,
 .rhap_volume-button,
 .rhap_forward-button,
 .rhap_replay-button {
-  color: #868686 !important; /* Color of all buttons and volume/progress indicators */
+    color: #868686 !important; /* Color of all buttons and volume/progress indicators */
 }

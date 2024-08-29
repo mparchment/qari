@@ -15,7 +15,7 @@ function App() {
         <div className="flex flex-col h-screen">
           <div className="flex flex-1">
             <Sidebar />
-            <main className="flex-1 ml-64 p-6">
+            <main className="flex-1 ml-64 py-10">
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/reciters" element={<Reciters />} />
@@ -24,7 +24,7 @@ function App() {
               </Routes>
             </main>
           </div>
-          <Player /> {/* Place the Player component at the bottom */}
+          <Player />
         </div>
       </AudioProvider>
     </Router>

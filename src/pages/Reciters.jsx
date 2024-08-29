@@ -19,7 +19,7 @@ const Reciters = () => {
 
         const reciterList = res.prefixes.map((folderRef) => ({
           name: formatTitle(folderRef.name),
-          imageUrl: `${folderRef.name.toLowerCase()}.jpg`, // Placeholder for image URL
+          imageUrl: `/qari/${folderRef.name}.jpg`, // Placeholder for image URL
         }));
 
         setReciters(reciterList);
@@ -32,8 +32,8 @@ const Reciters = () => {
   }, []);
 
   return (
-    <div className="p-6">
-      <h1 className="text-4xl font-bold mb-8 text-gray-800">Reciters</h1>
+    <div>
+      <h1 className="text-2xl font-bold mb-8 text-gray-800">Reciters</h1>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
         {reciters.map((reciter, index) => (
           <Link
@@ -50,7 +50,7 @@ const Reciters = () => {
               <div className="absolute inset-0 bg-black opacity-0 transition-opacity duration-500 ease-in-out hover:opacity-20"></div>
             </div>
             <div className="p-4">
-              <p className="text-lg font-semibold text-gray-800 truncate">{reciter.name}</p>
+              <p className="text-md font-semibold text-gray-800 truncate">{reciter.name}</p>
             </div>
           </Link>
         ))}

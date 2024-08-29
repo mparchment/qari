@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ref, listAll } from 'firebase/storage';
 import { storage } from '../firebase';
-import { useAudio } from '../contexts/AudioContext'; // Import the custom hook
+import biographies from '../biographies.json'; // Adjust the path as necessary
+import { ChevronRight } from 'lucide-react'; // Import the chevron icon
+import { formatTitle } from '../utils/FormatTitle';
 
 const ReciterDetail = () => {
   const { reciterName } = useParams();
@@ -21,13 +23,13 @@ const ReciterDetail = () => {
         const collectionList = res.prefixes.map((folderRef, index) => ({
           id: index + 1,
           name: folderRef.name,
-          imageUrl: `${folderRef.name.toLowerCase()}.jpg`, // Placeholder for image URL
+          imageUrl: `/qari/${folderRef.name}.jpg`, 
         }));
 
         setReciter({
           name: formatReciterName(reciterName),
-          imageUrl: 'reciter-placeholder.jpg',
-          bio: 'Reciter bio placeholder',
+          imageUrl: `/qari/${reciterName}.jpg`,
+          bio: biographies[reciterName], 
         });
 
         setCollections(collectionList);
@@ -63,41 +65,43 @@ const ReciterDetail = () => {
   }
 
   return (
-    <div className="p-6">
-      <h1 className="text-4xl font-bold mb-8">{reciter.name}</h1>
-      <div className="flex mb-8">
-        <div className="w-1/4 pr-4">
+    <div>
+      <div className="flex">
+        <div className="w-1/6 pr-8 pb-8">
           <img
             src={reciter.imageUrl}
             alt={reciter.name}
-            className="w-full h-auto object-cover rounded-md"
+            className="w-auto h-auto object-cover rounded-md shadow-md"
           />
         </div>
-        <div className="w-3/4 pl-4">
-          <p className="text-lg">{reciter.bio}</p>
+        <div>
+          <h1 className="text-2xl font-bold mb-4">{reciter.name}</h1>
+          <p className="text-lg max-w-screen-lg">{reciter.bio}</p>
         </div>
       </div>
-      <h2 className="text-2xl font-bold mb-4">Collections</h2>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-        {collections.map((collection) => (
-          <Link
-            key={collection.id}
-            to={`/reciters/${reciterName}/${collection.name}`}
-            className="relative bg-white rounded-lg shadow-md overflow-hidden"
-          >
-            <div className="relative">
-              <img
-                src={collection.imageUrl}
-                alt={collection.name}
-                className="w-full h-64 object-cover transition-opacity duration-500 ease-in-out"
-              />
-              <div className="absolute inset-0 bg-black opacity-0 transition-opacity duration-500 ease-in-out hover:opacity-20"></div>
-            </div>
-            <div className="p-4">
-              <p className="text-lg font-semibold text-gray-800 truncate">{collection.name}</p>
-            </div>
-          </Link>
-        ))}
+      <h2 className="text-xl font-bold mb-2">Collections</h2>
+      <div className="max-w-64 rounded-lg overflow-hidden">
+        <ul>
+          {collections.map((collection, index) => (
+            <li
+              key={collection.id}
+              className={`${index !== 0 ? 'border-t border-gray-200' : ''}`}
+            >
+              <Link
+                to={`/reciters/${reciterName}/${collection.name}`}
+                className="flex items-center py-3 group"
+              >
+                <ChevronRight
+                  size={20}
+                  className="text-gray-400 mr-2 transition-colors group-hover:text-red-900"
+                />
+                <span className="text-lg text-gray-800 font-medium transition-colors group-hover:text-red-900">
+                  {formatTitle(collection.name)}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
