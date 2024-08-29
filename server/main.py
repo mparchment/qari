@@ -22,6 +22,8 @@ class AudioFile(BaseModel):
     id: str
     title: str
     file_path: str
+    reciter: str  # Add this line
+    collection: str  # Add this line
 
 class Collection(BaseModel):
     name: str
@@ -92,7 +94,9 @@ def get_reciters_from_directory():
                             collections[collection_name].append(AudioFile(
                                 id=f"{reciter_name}-{collection_name}-{audio_file}",
                                 title=audio_file.replace('.mp3', ''),
-                                file_path=audio_url  # Return the full URL here
+                                file_path=audio_url,
+                                reciter=reciter_name.replace('-', ' ').title(),  # Ensure reciter is included
+                                collection=format_title(collection_name)  # Ensure collection is included
                             ))
             
             reciter_collections = [
@@ -109,6 +113,7 @@ def get_reciters_from_directory():
             ))
     
     return reciters
+
 
 def get_cached_reciters():
     """Retrieve reciters from cache or refresh if needed."""
