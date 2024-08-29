@@ -49,28 +49,28 @@ const CollectionDetail = () => {
   }, [reciterName, collectionName]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="p-6">Loading...</div>;
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div className="p-6">{error}</div>;
   }
 
   return (
     <div className="p-6">
-      <h1 className="text-4xl font-bold mb-8">{formatTitle(collectionName)} Collection</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {collection.map((audio, index) => (
-          <div key={index} className="bg-white rounded-lg shadow-md p-4">
-            <p className="text-lg font-semibold text-gray-800 truncate">{audio.name}</p>
-            <button
-              onClick={() => playAudio(audio.url, collection, collectionName, reciterName, audio.title)} // Pass collectionName
-              className="mt-2 bg-blue-500 text-white px-4 py-2 rounded"
+      <h1 className="text-4xl font-bold mb-8">{formatTitle(reciterName)} — {formatTitle(collectionName)}</h1>
+      <div className="bg-white rounded-lg">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {collection.map((audio, index) => (
+            <div
+              key={index}
+              className="p-4 cursor-pointer hover:bg-gray-100"
+              onClick={() => playAudio(audio.url, collection, collectionName, reciterName, audio.title)}
             >
-              Play
-            </button>
-          </div>
-        ))}
+              <p className="text-lg font-semibold text-gray-800 truncate">{audio.title}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
