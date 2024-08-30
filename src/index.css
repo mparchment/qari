@@ -32,7 +32,6 @@ body::-webkit-scrollbar {
     background-color: #2196f3;
 }
 
-/* Player styles */
 .player-container {
     position: fixed;
     bottom: 0;
@@ -49,6 +48,8 @@ body::-webkit-scrollbar {
 
 .player-content {
     padding: 10px;
+    max-width: 100%;
+    margin: 0 auto;
 }
 
 /* Override react-h5-audio-player default styles */
@@ -77,13 +78,16 @@ body::-webkit-scrollbar {
 /* Media query for larger screens */
 @media (min-width: 768px) {
     .player-container {
-        left: 35%;
+        left: 50%;
         transform: translateX(-50%) translateY(100%);
-        width: 33%;
     }
 
     .player-container.visible {
         transform: translateX(-50%) translateY(0);
+    }
+
+    .player-content {
+        max-width: 33%;
     }
 
     .rhap_container {
