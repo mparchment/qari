@@ -1,15 +1,10 @@
 import React from 'react';
 import AudioPlayer from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css'; // Import styles
-
-import { useAudio } from '../contexts/AudioContext'; // Import the custom hook
+import 'react-h5-audio-player/lib/styles.css';
+import { useAudio } from '../contexts/AudioContext';
 
 const Player = () => {
-  const {
-    currentAudio,
-    skipToNext,
-    skipToPrevious
-  } = useAudio();
+  const { currentAudio, skipToNext, skipToPrevious } = useAudio();
 
   return (
     <div className={`player-container ${currentAudio ? 'visible' : ''}`}>
@@ -21,8 +16,8 @@ const Player = () => {
             onPlay={e => console.log("onPlay")}
             showSkipControls={true}
             showFilledProgress={true}
-            onClickNext={skipToNext} // Attach skip to next function
-            onClickPrevious={skipToPrevious} // Attach skip to previous function
+            onClickNext={skipToNext}
+            onClickPrevious={skipToPrevious}
           />
         </div>
       )}

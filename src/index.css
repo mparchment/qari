@@ -13,7 +13,7 @@ html, body {
     font-family: 'Inter', sans-serif;
 }
 
-::body::-webkit-scrollbar {
+body::-webkit-scrollbar {
     display: none;
 }
 
@@ -32,53 +32,61 @@ html, body {
     background-color: #2196f3;
 }
 
-/* Ensure that the parent container of Player allows it to be positioned at the bottom */
-html, body {
-    height: 100%;
-    margin: 0;
-}
-
-/* Ensure the Player is positioned at the bottom */
+/* Player styles */
 .player-container {
     position: fixed;
     bottom: 0;
-    left: 35%;
-    transform: translateX(-50%);
-    width: 33%; /* Adjust the width to less than half of the screen */
-    transition: transform 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-    transform: translateY(100%); /* Hide it initially */
+    left: 0;
+    width: 100%;
+    transition: transform 0.3s ease-in-out;
+    transform: translateY(100%);
+    z-index: 50;
 }
 
 .player-container.visible {
-    transform: translateY(0); /* Slide it up */
+    transform: translateY(0);
 }
 
 .player-content {
     padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 /* Override react-h5-audio-player default styles */
 .rhap_container {
-    background-color: rgba(0, 0, 0, 0.8) !important; /* Match the player background with the sidebar */
-    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.8) !important;
+    border-radius: 8px 8px 0 0;
 }
 
 .rhap_progress-bar,
 .rhap_volume-bar {
-    background-color: #e4e4e4 !important; /* Color of volume and progress bar */
+    background-color: #e4e4e4 !important;
 }
 
 .rhap_controls-section,
 .rhap_time {
-    color: #fff !important; /* Font color of current time and duration */
+    color: #fff !important;
 }
 
 .rhap_play-pause-button,
 .rhap_volume-button,
 .rhap_forward-button,
 .rhap_replay-button {
-    color: #868686 !important; /* Color of all buttons and volume/progress indicators */
+    color: #868686 !important;
+}
+
+/* Media query for larger screens */
+@media (min-width: 768px) {
+    .player-container {
+        left: 35%;
+        transform: translateX(-50%) translateY(100%);
+        width: 33%;
+    }
+
+    .player-container.visible {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    .rhap_container {
+        border-radius: 8px;
+    }
 }
